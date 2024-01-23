@@ -1,14 +1,29 @@
-from django.http import HttpResponse, Http404, HttpResponseRedirect, HttpResponsePermanentRedirect
+from django.http import HttpResponse
 from django.shortcuts import render, redirect
 from django.urls import reverse
 
+menu = ["Главная страница", "О сайте", "Добавить статью", "Обратная связь", "Войти"]
+
+
+class MyClass:
+    def __init__(self, a, b):
+        self.a, self.b = a, b
+
 
 def index(request):
-    return render(request, 'women/index.html')
+    data = {'title': 'Главная страница',
+            'menu': menu,
+            'float': 28.56,
+            'list': [1, 2, 'abc', True],
+            'set': {2, 7, 3, 5, 9},
+            'dict': {'key1': 'value1', 'key2': 'value2'},
+            'object': MyClass(10, 20)
+            }
+    return render(request, 'women/index.html', context=data)
 
 
 def about(request):
-    return render(request, 'women/about.html')
+    return render(request, 'women/about.html', {'title': 'О сайте'})
 
 
 def categories(request, cat_id):
